@@ -1,4 +1,4 @@
-package marcos;
+package marcos.oop;
 import daw.com.Pantalla;
 import daw.com.Teclado;
 

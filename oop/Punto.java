@@ -3,13 +3,15 @@ package marcos.oop;
 import daw.com.Pantalla;
 import daw.com.Teclado;
 
+import java.net.Inet4Address;
+
 
 public class Punto {
 	private int x;
 	private int y;
 	
 	public Punto () {
-		x = 0;
+		x = Integer.MAX_VALUE;
 		y = 0;
 	}
 	
@@ -45,13 +47,13 @@ public class Punto {
 	}
 	
 	public void leerDatos () {
-		x = Teclado.leerInt("X :");
-		y = Teclado.leerInt("Y :");
+		x = Teclado.leerInt("X: ");
+		y = Teclado.leerInt("Y: ");
 	}
 
 	public void mostrarDatos () {
-		Pantalla.escribirString("X :" + x);
-		Pantalla.escribirString("Y :" + y);
+		System.out.println("X :" + x);
+		System.out.println("Y :" + y);
 	}
 	
 	public boolean esIgual (Punto p) {

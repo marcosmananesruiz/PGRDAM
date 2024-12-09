@@ -62,12 +62,15 @@ public class Rectangulo {
 	
 	public void mostrarDatos() {
 		this.centro.mostrarDatos();
-		Pantalla.escribirString("Base: " + b);
-		Pantalla.escribirString("Altura: " + h);
+		System.out.println("Base: " + b);
+		System.out.println("Altura: " + h);
 	}
 	public void cambiarDatos() {
-		setBase(Teclado.leerInt("Introduce la base del rectangulo"));
-		setAltura(Teclado.leerInt("Introduce la altura del rectanguo"));
+
+		this.centro.setX(Teclado.leerInt("Introduce la X del rectangulo:"));
+		this.centro.setY(Teclado.leerInt("Introduce la Y del rectangulo:"));
+		setBase(Teclado.leerInt("Introduce la base del rectangulo:"));
+		setAltura(Teclado.leerInt("Introduce la altura del rectangulo:"));
 
 		this.mostrarDatos();
 	}

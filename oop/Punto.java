@@ -1,9 +1,9 @@
 package marcos.oop;
 
-import daw.com.Pantalla;
 import daw.com.Teclado;
 
 import java.net.Inet4Address;
+import java.util.function.IntPredicate;
 
 
 public class Punto {
@@ -11,7 +11,7 @@ public class Punto {
 	private int y;
 	
 	public Punto () {
-		x = Integer.MAX_VALUE;
+		x = 0;
 		y = 0;
 	}
 	
@@ -52,8 +52,8 @@ public class Punto {
 	}
 
 	public void mostrarDatos () {
-		System.out.println("X :" + x);
-		System.out.println("Y :" + y);
+		System.out.println("X: " + x);
+		System.out.println("Y: " + y);
 	}
 	
 	public boolean esIgual (Punto p) {

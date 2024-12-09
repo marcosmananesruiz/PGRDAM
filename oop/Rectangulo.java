@@ -1,5 +1,6 @@
 package marcos.oop;
 
+import com.sun.security.auth.callback.TextCallbackHandler;
 import daw.com.Pantalla;
 import daw.com.Teclado;
 
@@ -8,6 +9,7 @@ public class Rectangulo {
 	private int h;
 	private Punto centro;
 	private int color;
+
 	
 	public Rectangulo() {
 		this.b = 0;
@@ -26,9 +28,6 @@ public class Rectangulo {
 		this.b = copy.getBase();
 		this.h = copy.getAltura();
 	}
-
-
-
 	public int getBase() {
 		return b;
 	}
@@ -67,11 +66,26 @@ public class Rectangulo {
 	}
 	public void cambiarDatos() {
 
-		this.centro.setX(Teclado.leerInt("Introduce la X del rectangulo:"));
-		this.centro.setY(Teclado.leerInt("Introduce la Y del rectangulo:"));
-		setBase(Teclado.leerInt("Introduce la base del rectangulo:"));
-		setAltura(Teclado.leerInt("Introduce la altura del rectangulo:"));
+		String newX = Teclado.leerString("Introduce la X del rectangulo:");
+		if (!newX.isEmpty() && esNumero(newX)) this.centro.setX(Integer.parseInt(newX));
+		String newY = Teclado.leerString("Introduce la Y del rectangulo:");
+		if (!newY.isEmpty() && esNumero(newY)) this.centro.setY(Integer.parseInt(newY));
+		String newBase = Teclado.leerString("Introduce la nueva base:");
+		if (!newBase.isEmpty() && esNumero(newBase)) this.setBase(Integer.parseInt(newBase));
+		String newAltura = Teclado.leerString("Introduce la nueva altura:");
+		if (!newAltura.isEmpty() && esNumero(newAltura)) this.setAltura(Integer.parseInt(newAltura));
 
 		this.mostrarDatos();
 	}
+
+	private boolean esNumero(String numero) {
+		try	{
+			Double.parseDouble(numero);
+			return true;
+		} catch (NumberFormatException e) {
+			return false;
+		}
+	}
+
+
 }

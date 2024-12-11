@@ -71,7 +71,7 @@ public class Rectangulo {
 		Pantalla.escribirString("Color del rectángulo: ", String.valueOf(color));
 		Pantalla.escribirSaltoLinea();
 		Pantalla.escribirString("");
-		centro.mostrarDatos();
+		this.centro.mostrarDatos();
 		Pantalla.escribirSaltoLinea();
 		Pantalla.escribirSaltoLinea();
 	}
@@ -93,15 +93,15 @@ public class Rectangulo {
 
 		do {
 			setAltura(this.cambiarPropiedadDouble("Indica la nueva altura"));
-		} while (Double.isNaN(this.altura) || this.altura < 0);
+		} while (Double.isNaN(this.altura) || this.altura < 0); // Como es el valor de la altura, no deberia tener un valor negativo
 
 		do {
 			setBase(this.cambiarPropiedadDouble("Indica la nueva base"));
-		} while (Double.isNaN(this.base) || this.altura < 0);
+		} while (Double.isNaN(this.base) || this.base < 0); // Como es el valor de la base, no deberia tener un valor negativo
 
 		do {
 			setColor(this.cambiarPropiedadInt("Indica el nuevo color"));
-		} while (this.color == Integer.MAX_VALUE || this.altura < 0);
+		} while (this.color == Integer.MAX_VALUE || this.color < 0); // Como es el valor del color, no deberia tener un valor negativo
 
 		do {
 			this.centro.setX(this.cambiarPropiedadInt("Indica el nuevo valor de X del punto:"));

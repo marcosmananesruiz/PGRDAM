@@ -1,91 +1,143 @@
 package marcos.oop;
 
-import com.sun.security.auth.callback.TextCallbackHandler;
 import daw.com.Pantalla;
 import daw.com.Teclado;
 
 public class Rectangulo {
-	private int b;
-	private int h;
-	private Punto centro;
-	private int color;
 
+	private int color;
+	private Punto centro;
+	private double base;
+	private double altura;
 	
 	public Rectangulo() {
-		this.b = 0;
-		this.h = 0;
-		this.centro = new Punto();
 		this.color = 0;
-	}
+		this.base = 0.0;
+		this.altura = 0.0;
+		this.centro = new Punto();
+	}	
 	
-	public Rectangulo(int b, int h, Punto centro, int color) {
-		this.b = b;
-		this.h = h;
+	public Rectangulo(int color, Punto centro, double base, double altura) {
+		this.color = color;
 		this.centro = centro;
-		this.color = color;
+		this.base = base;
+		this.altura = altura;
 	}
-	public Rectangulo(Rectangulo copy) {
-		this.b = copy.getBase();
-		this.h = copy.getAltura();
+
+	public Rectangulo(Rectangulo r) {
+		this.color = r.color;
+		this.base = r.base;
+		this.altura = r.altura;
+		this.centro = new Punto(r.centro);
 	}
-	public int getBase() {
-		return b;
-	}
-	public void setBase(int b) {
-		this.b = b;
-	}
-	public int getAltura() {
-		return h;
-	}
-	public void setAltura(int h) {
-		this.h = h;
-	}
-	public Punto getCentro() {
-		return this.centro;
-	}
-	public void setCentro(Punto punto) {
-		this.centro = punto;
-	}
+
 	public int getColor() {
-		return this.color;
+		return color;
 	}
-	public void setColot(int color) {
+
+	public void setColor(int color) {
 		this.color = color;
 	}
-	public int area() {
-		return this.b * this.h;
+
+	public Punto getCentro() {
+		return centro;
 	}
-	public int perimetro() {
-		return this.b * 2 + this.h * 2;
+
+	public void setCentro(Punto centro) {
+		this.centro = centro;
 	}
-	
+
+	public double getBase() {
+		return base;
+	}
+
+	public void setBase(double base) {
+		this.base = base;
+	}
+
+	public double getAltura() {
+		return altura;
+	}
+
+	public void setAltura(double altura) {
+		this.altura = altura;
+	}
+
 	public void mostrarDatos() {
-		this.centro.mostrarDatos();
-		System.out.println("Base: " + b);
-		System.out.println("Altura: " + h);
+		Pantalla.escribirString("Base del rectángulo: ", String.valueOf(base));
+		Pantalla.escribirSaltoLinea();
+		Pantalla.escribirString("Altura del rectángulo: ", String.valueOf(altura));
+		Pantalla.escribirSaltoLinea();
+		Pantalla.escribirString("Color del rectángulo: ", String.valueOf(color));
+		Pantalla.escribirSaltoLinea();
+		Pantalla.escribirString("");
+		centro.mostrarDatos();
+		Pantalla.escribirSaltoLinea();
+		Pantalla.escribirSaltoLinea();
 	}
+
+	/*
+	 * Código duplicado
+	 * Control de errores
+	 * No usa métodos, los redefine
+	 * No se ha leído la documentación de Teclado
+	 *
+	 * Crear funciones para evitar código duplicado
+	 * Modificar leerDatos() para cumplir especificaciones
+	 * Usar los métodos adecuados para cada tipo
+	 * Buscar un método para realizar conversiones seguras
+	 */
+
+
 	public void cambiarDatos() {
 
-		String newX = Teclado.leerString("Introduce la X del rectangulo:");
-		if (!newX.isEmpty() && esNumero(newX)) this.centro.setX(Integer.parseInt(newX));
-		String newY = Teclado.leerString("Introduce la Y del rectangulo:");
-		if (!newY.isEmpty() && esNumero(newY)) this.centro.setY(Integer.parseInt(newY));
-		String newBase = Teclado.leerString("Introduce la nueva base:");
-		if (!newBase.isEmpty() && esNumero(newBase)) this.setBase(Integer.parseInt(newBase));
-		String newAltura = Teclado.leerString("Introduce la nueva altura:");
-		if (!newAltura.isEmpty() && esNumero(newAltura)) this.setAltura(Integer.parseInt(newAltura));
+		do {
+			setAltura(this.cambiarPropiedadDouble("Indica la nueva altura"));
+		} while (Double.isNaN(this.altura) || this.altura < 0);
+
+		do {
+			setBase(this.cambiarPropiedadDouble("Indica la nueva base"));
+		} while (Double.isNaN(this.base) || this.altura < 0);
+
+		do {
+			setColor(this.cambiarPropiedadInt("Indica el nuevo color"));
+		} while (this.color == Integer.MAX_VALUE || this.altura < 0);
+
+		do {
+			this.centro.setX(this.cambiarPropiedadInt("Indica el nuevo valor de X del punto:"));
+		} while (this.centro.getX() == Integer.MAX_VALUE);
+
+		do {
+			this.centro.setY(this.cambiarPropiedadInt("Indica el nuevo valor de Y del punto:"));
+		} while (this.centro.getY() == Integer.MAX_VALUE);
 
 		this.mostrarDatos();
 	}
 
-	private boolean esNumero(String numero) {
-		try	{
-			Double.parseDouble(numero);
-			return true;
-		} catch (NumberFormatException e) {
-			return false;
-		}
+	private int cambiarPropiedadInt(String mensaje) {
+		String num = Teclado.leerString(mensaje);
+		if (esNumero(num) && !num.isEmpty())
+			return Integer.parseInt(num);
+		return Integer.MAX_VALUE;
 	}
 
+	private double cambiarPropiedadDouble(String mensaje) {
+		String num = Teclado.leerString(mensaje);
+		if (esNumero(num) && !num.isEmpty())
+			return Double.parseDouble(num);
+		return Double.NaN;
+	}
+
+	private boolean esNumero(String numero) {
+		if (numero != null) {
+			try	{
+				Double.parseDouble(numero);
+				return true;
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		}
+		return false;
+	}
 
 }

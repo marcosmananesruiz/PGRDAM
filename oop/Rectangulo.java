@@ -114,6 +114,8 @@ public class Rectangulo {
 		this.mostrarDatos();
 	}
 
+	// Como hay valores int y double, necesito tener una funcion para cada tipo de dato
+
 	private int cambiarPropiedadInt(String mensaje) {
 		String num = Teclado.leerString(mensaje);
 		if (esNumero(num) && !num.isEmpty())
@@ -128,6 +130,8 @@ public class Rectangulo {
 		return Double.NaN;
 	}
 
+
+	// Funcion de utilidad que me sirve para comprobar si un string se puede transformar a numero
 	private boolean esNumero(String numero) {
 		if (numero != null) {
 			try	{
